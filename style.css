@@ -1,0 +1,36 @@
+/* screen */
+.screen {
+    box-sizing: border-box;
+    border: 1px solid black;
+    max-width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+output {
+    box-sizing: border-box;
+    /* font-size: 60px; */
+    /* letter-spacing: 2px; */
+}
+
+/* button pad */
+.buttons {
+    border: 1px solid black;
+    display: flex;
+    max-width: 300px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+button {
+    width: 74.5px;
+    height: 74.5px;
+    box-sizing: border-box;
+}
+
+.clear {
+    flex-basis: 300px;
+    flex-grow: 4;
+}
