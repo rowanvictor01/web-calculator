@@ -4,8 +4,7 @@ A beginner-friendly web calculator built using vanilla JavaScript, HTML, and CSS
 
 ## 🚀 Live Demo
 
-[Click here to try it out](#)  
-_Replace the link with your deployed version (e.g. GitHub Pages)_
+[Click here to try it out](https://rowanvictor01.github.io/web-calculator/)  
 
 ---
 
