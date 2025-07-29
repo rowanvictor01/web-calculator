@@ -1,3 +1,9 @@
+// fix: chain calc almost there but if a number is pressed instead of an operator, issue arise
+
+
+
+
+
 // DOM
 const output = document.querySelector("output");
 const charToShow = document.querySelectorAll(".show");
@@ -43,61 +49,63 @@ function registerInput(e) {
     const pressedBtn = e.target.classList;
 
     if (pressedBtn.contains("add")) {
-        if (expression.sign === "") {
+        if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "+";
             isEqualsReady = true;
             reset();
         }
-        // else {
-        //     expression.y = +outputBuffer;
-        //     expression.sign = "+";
-        //     reset();
-        //     isEqualsReady = true;
-        // }
+        else {
+            expression.y = +outputBuffer;
+            expression.sign = "+";
+            isEqualsReady = true;
+            reset();
+        }
     }
     else if (pressedBtn.contains("sub")) {
-        if (expression.sign === "") {
+        if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "-";
             isEqualsReady = true;
             reset();
         }
-        // else {
-        //     expression.y = +outputBuffer;
-        //     expression.sign = "-";
-        //     reset();
-        //     isEqualsReady = true;
-        // }
+        else {
+            expression.y = +outputBuffer;
+            expression.sign = "-";
+            isEqualsReady = true;
+            reset();
+        }
     }
     else if (pressedBtn.contains("mul")) {
-        if (expression.sign === "") {
+        if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "*";
             isEqualsReady = true;
             reset();
         }
-        // else {
-        //     expression.y = +outputBuffer;
-        //     expression.sign = "*";
-        //     reset();
-        //     isEqualsReady = true;
-        // }
+        else {
+            expression.y = +outputBuffer;
+            expression.sign = "*";
+            isEqualsReady = true;
+            reset();
+        }
     }
     else if (pressedBtn.contains("div")) {
-        if (expression.sign === "") {
+        if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "/";
             isEqualsReady = true;
             reset();
         }
-        // else {
-        //     expression.y = +outputBuffer;
-        //     expression.sign = "/";
-        //     reset();
-        //     isEqualsReady = true;
-        // }
+        else {
+            expression.y = +outputBuffer;
+            expression.sign = "/";
+            isEqualsReady = true;
+            reset();
+        }
     }
+
+    console.log(expression);
 }
 
 
@@ -115,6 +123,9 @@ function displayChars(e) {
 
     outputBuffer += e.target.textContent;
     output.textContent = outputBuffer;
+
+
+    console.log(expression);
 }
 
 function reset() {
@@ -172,7 +183,12 @@ equals.addEventListener("click", () => {
         expression.y = +outputBuffer;
         operate();
         reset()
+        expression.sign = "";
         output.textContent = expression.result;
+
+        expression.x = expression.result;
+        // isEqualsReady = true;
+        console.log(expression);
     }
 });
 
