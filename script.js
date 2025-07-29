@@ -3,7 +3,8 @@ const output = document.querySelector("output");
 const charToShow = document.querySelectorAll(".show");
 const signs = document.querySelectorAll(".sign");
 const equals = document.querySelector(".equals");
-
+const clear = document.querySelector(".clear");
+const ac = document.querySelector(".ac");
 
 
 // GLOBAL VARIABLES
@@ -19,10 +20,27 @@ const expression = {
 }
 
 
+function clearAll() {
+    outputBuffer = "";
+    hasDecimalPoint = false;
+    isEqualsReady = false;
 
+    expression.x = 0;
+    expression.y = 0;
+    expression.sign = "";
+    expression.result = 0;
+}
+
+
+function clearChar() {
+    const lastNum = outputBuffer.length;
+    const updateOutput = outputBuffer.slice(0, lastNum - 1);
+
+    return updateOutput;
+}
 
 function registerInput(e) {
-    let pressedBtn = e.target.classList;
+    const pressedBtn = e.target.classList;
 
     if (pressedBtn.contains("add")) {
         if (expression.sign === "") {
@@ -85,7 +103,7 @@ function registerInput(e) {
 
 // DISPLAY
 function displayChars(e) {
-    let pressedBtn = e.target.textContent;
+    const pressedBtn = e.target.textContent;
 
     // decimal point check
     if (pressedBtn === '.' && !hasDecimalPoint) {
@@ -110,7 +128,6 @@ function operate() {
     switch (expression.sign) {
         case "+":
             expression.result = add(expression.x, expression.y);
-            console.log(expression.result);
             break;
         case "-":
             expression.result = subtract(expression.x, expression.y);
@@ -147,8 +164,8 @@ function divide(x, y) {
 
 
 // Events
-charToShow.forEach((button) => button.addEventListener("click", displayChars));
-signs.forEach((button) => button.addEventListener("click", registerInput));
+charToShow.forEach((button) => button.addEventListener("click", displayChars)); // for output
+signs.forEach((button) => button.addEventListener("click", registerInput));  // when an operator is pressed
 
 equals.addEventListener("click", () => {
     if (isEqualsReady) {
@@ -157,4 +174,28 @@ equals.addEventListener("click", () => {
         reset()
         output.textContent = expression.result;
     }
+});
+
+// clear numbers one by one
+clear.addEventListener("click", () => {
+    // check if there's no user input
+    if (!outputBuffer) {
+        return;
+    }
+
+    const beforeClear = outputBuffer;
+
+    outputBuffer = clearChar();
+    output.textContent = outputBuffer;
+
+    // check if there's a decimal point before and after clearing
+    if (beforeClear.includes('.') && !outputBuffer.includes('.')) {
+        hasDecimalPoint = false;
+    }
+});
+
+// reset all
+ac.addEventListener("click", () => {
+    clearAll();
+    output.textContent = '0';
 });

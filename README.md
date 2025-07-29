@@ -24,8 +24,8 @@ A beginner-friendly web calculator built using vanilla JavaScript, HTML, and CSS
 
 - [ ] Refactor the long `registerInput()` function into an object-based dispatch pattern using `for...in`
 - [ ] Add a **division by zero** guard
-- [ ] Automatically reset the output after a result is shown when the user presses a number
-- [ ] Add a **Clear** button that deletes characters one by one (like backspace)
+- [x] Add a **Clear** button that deletes characters one by one (like backspace)
+- [x] Add an **All Clear (AC)** button that the resets caclulator
 - [ ] Add a **history log** to display past equations and results
 - [ ] Improve UI and layout with better styling and responsive design
 

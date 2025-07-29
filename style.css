@@ -30,7 +30,8 @@ button {
     box-sizing: border-box;
 }
 
-.clear {
-    flex-basis: 300px;
-    flex-grow: 4;
+.clear,
+.ac {
+    flex-basis: 120px;
+    flex-grow: 2;
 }
