@@ -1,9 +1,6 @@
 // fix: chain calc almost there but if a number is pressed instead of an operator, issue arise
 
 
-
-
-
 // DOM
 const output = document.querySelector("output");
 const charToShow = document.querySelectorAll(".show");
@@ -17,6 +14,7 @@ const ac = document.querySelector(".ac");
 let outputBuffer = "";
 let hasDecimalPoint = false;
 let isEqualsReady = false;
+let isResultShown = false;
 
 const expression = {
     x: 0,
@@ -30,6 +28,7 @@ function clearAll() {
     outputBuffer = "";
     hasDecimalPoint = false;
     isEqualsReady = false;
+    isResultShown = false;
 
     expression.x = 0;
     expression.y = 0;
@@ -52,7 +51,6 @@ function registerInput(e) {
         if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "+";
-            isEqualsReady = true;
             reset();
         }
         else {
@@ -66,7 +64,6 @@ function registerInput(e) {
         if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "-";
-            isEqualsReady = true;
             reset();
         }
         else {
@@ -80,7 +77,6 @@ function registerInput(e) {
         if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "*";
-            isEqualsReady = true;
             reset();
         }
         else {
@@ -94,7 +90,6 @@ function registerInput(e) {
         if (!expression.sign && !expression.x) {
             expression.x = +outputBuffer;
             expression.sign = "/";
-            isEqualsReady = true;
             reset();
         }
         else {
@@ -175,19 +170,42 @@ function divide(x, y) {
 
 
 // Events
-charToShow.forEach((button) => button.addEventListener("click", displayChars)); // for output
-signs.forEach((button) => button.addEventListener("click", registerInput));  // when an operator is pressed
 
+// display chars when nubmers are pressed
+charToShow.forEach((button) => button.addEventListener("click", (e) => {
+    if (isResultShown) {
+        clearAll();
+    }
+
+    displayChars(e);
+}));
+
+// register number pressed when an operator is pressed
+signs.forEach((button) => button.addEventListener("click", (e) => {
+    // if (expression.sign) {
+    //     return;
+    // }
+
+    registerInput(e);
+    isResultShown = false;
+}));
+
+// equals btn
 equals.addEventListener("click", () => {
+    expression.y = +outputBuffer;
+    if (outputBuffer) {
+        isEqualsReady = true;
+    }
+
     if (isEqualsReady) {
-        expression.y = +outputBuffer;
         operate();
         reset()
         expression.sign = "";
         output.textContent = expression.result;
+        isResultShown = true;
 
         expression.x = expression.result;
-        // isEqualsReady = true;
+
         console.log(expression);
     }
 });
