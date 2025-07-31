@@ -1,4 +1,3 @@
-// fix: chain calc almost there but if a number is pressed instead of an operator, issue arise
 
 
 // DOM
@@ -22,6 +21,7 @@ const expression = {
     y: 0,
     result: 0,
 }
+console.log(expression);
 
 
 function clearAll() {
@@ -150,22 +150,34 @@ function operate() {
 
 // OPERATIONS
 function add(x, y) {
-    return x + y;
+    const sum = x + y;
+    const rounded = +sum.toFixed(5);
+
+    return rounded;
 }
 
 
 function subtract(x, y) {
-    return x - y;
+    const difference = x - y;
+    const rounded = +difference.toFixed(5);
+
+    return rounded;
 }
 
 
 function multiply(x, y) {
-    return x * y;
+    const product = x * y;
+    const rounded = +product.toFixed(5);
+
+    return rounded;
 }
 
 
 function divide(x, y) {
-    return x / y;
+    const quotient = x / y;
+    const rounded = +quotient.toFixed(5);
+
+    return rounded;
 }
 
 
@@ -182,17 +194,35 @@ charToShow.forEach((button) => button.addEventListener("click", (e) => {
 
 // register number pressed when an operator is pressed
 signs.forEach((button) => button.addEventListener("click", (e) => {
-    // if (expression.sign) {
-    //     return;
-    // }
+    let isNegativeSign = false;
 
-    registerInput(e);
+    // check to determine whether it's a minus sign or a negative number
+    if (!outputBuffer && e.target.classList.contains("sub") && !isResultShown) {
+        outputBuffer += '-';
+        output.textContent = outputBuffer;
+        isNegativeSign = true;
+    }
+    else {
+        isNegativeSign = false;
+    }
+
+    // check if there's already a registered sign
+    if (expression.sign) {
+        return;
+    }
+
+    // if its not a negative sign, then its the minus sign to trigger function to register operator
+    if (!isNegativeSign) {
+        registerInput(e);
+    }
+
     isResultShown = false;
 }));
 
 // equals btn
 equals.addEventListener("click", () => {
     expression.y = +outputBuffer;
+
     if (outputBuffer) {
         isEqualsReady = true;
     }
