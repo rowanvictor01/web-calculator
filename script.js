@@ -21,7 +21,6 @@ const expression = {
     y: 0,
     result: 0,
 }
-console.log(expression);
 
 
 function clearAll() {
@@ -99,8 +98,6 @@ function registerInput(e) {
             reset();
         }
     }
-
-    console.log(expression);
 }
 
 
@@ -118,9 +115,6 @@ function displayChars(e) {
 
     outputBuffer += e.target.textContent;
     output.textContent = outputBuffer;
-
-
-    console.log(expression);
 }
 
 function reset() {
@@ -235,8 +229,6 @@ equals.addEventListener("click", () => {
         isResultShown = true;
 
         expression.x = expression.result;
-
-        console.log(expression);
     }
 });
 
